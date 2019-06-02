@@ -51,6 +51,16 @@ public abstract class ShareIntent {
             this.chooserTitle = options.getString("title");
         }
 
+        if (ShareIntent.hasValidKey("sendto", options)) {
+            String formattedNumber = options.getString("sendto");
+            this.getIntent().putExtra("jid", formattedNumber + "@s.whatsapp.net");
+        }
+
+        if (ShareIntent.hasValidKey("recipient", options)) {
+            String []recipientArray = new String[]{options.getString("recipient")};
+            this.getIntent().putExtra(Intent.EXTRA_EMAIL, recipientArray);
+        }
+
         String message = "";
         if (ShareIntent.hasValidKey("message", options)) {
             message = options.getString("message");
